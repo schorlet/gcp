@@ -1,0 +1,7 @@
+.dockerignore
+.gcloudignore
+.gitignore
+storage_test.go
+Dockerfile
+assets/app.min.js
+assets/style.min.css

@@ -1,0 +1,5 @@
+testdata/
+.gcloudignore
+.gitignore
+function_test.go
+TEXT.md

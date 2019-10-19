@@ -1,0 +1,5 @@
+.gcloudignore
+.gitignore
+storage_test.go
+assets/app.min.js
+assets/style.min.css

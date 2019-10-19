@@ -1,0 +1,6 @@
+testdata/
+.gcloudignore
+.gitignore
+detect_test.go
+publish_test.go
+IMAGE.md

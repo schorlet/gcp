@@ -1,0 +1,47 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+	<link rel="stylesheet" href="/style.min.css">
+	<link rel="preload" as="script" href="app.min.js">
+</head>
+<body>
+	<div class="panels">
+		<div id="media_panel" class="panel">
+
+			<div id="video_step" class="step" hidden>
+				<video id="video" autoplay>browsers that don't support canvas</video>
+				<button id="take_photo" disabled>Take Photo</button>
+			</div>
+
+			<div id="file_step" class="step" hidden>
+				<div id="drop_zone">
+					<label for="file">Select a photo</label>
+					<input type="file" id="file" name="file" accept="image/*">
+				</div>
+			</div>
+
+			<div id="preview_step" class="step" hidden>
+				<img id="photo" alt="preview" hidden>
+				<canvas id="canvas">browsers that don't support canvas</canvas>
+				<button id="reset">Retry</button>
+			</div>
+		</div>
+
+		<div id="text_panel" class="panel">
+			<div id="text_step" class="step"></div>
+		</div>
+
+		<div id="overlay_panel" class="panel" hidden>
+			<p id="overlay_step" class="step">&#9881;</p>
+		</div>
+	</div>
+
+<!--
+	<script type="text/javascript" src="/upload.js" defer></script>
+	<script type="text/javascript" src="/media.js" defer></script>
+	<script type="text/javascript" src="/app.js" defer></script>
+-->
+	<script type="text/javascript" src="/app.min.js" defer></script>
+</body>
+</html>
