@@ -6,6 +6,8 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"os"
+	"sort"
 	"strings"
 	"text/template"
 )
@@ -15,6 +17,12 @@ const body = `
 ## HTTP headers
 {{range $key, $_ := .Header}}
 - {{ $key }}: {{ ($.Header.Get $key) }}{{end}}
+{{end}}
+
+{{define "env"}}
+## Environment
+{{range $_, $env := .}}
+- {{ $env }}{{end}}
 {{end}}
 
 {{define "jwt"}}
@@ -54,8 +62,16 @@ func Dump(w http.ResponseWriter, r *http.Request) {
 	var out bytes.Buffer
 
 	// output request headers
-	err := t.ExecuteTemplate(&out, "req", r)
-	if err != nil {
+	if err := t.ExecuteTemplate(&out, "req", r); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	environ := os.Environ()
+	sort.Strings(environ)
+
+	// output environment variables
+	if err := t.ExecuteTemplate(&out, "env", environ); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}

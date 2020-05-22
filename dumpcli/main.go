@@ -18,7 +18,7 @@ func main() {
 	flag.Parse()
 	if flag.NFlag() == 0 {
 		flag.Usage()
-		os.Exit(-2)
+		os.Exit(2)
 	}
 
 	ctx := context.Background()
