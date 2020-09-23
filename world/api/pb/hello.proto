@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package pb;
+option go_package = "schorlet.local/gcp/world/api/pb;pb";
+
+message HelloRequest {
+	string Name = 1;
+}
+
+message HelloResponse {
+	string Message = 1;
+	string Version = 2;
+	string Hostname = 3;
+}
+
+service Hello {
+	rpc Hello(HelloRequest) returns (HelloResponse);
+}
+
