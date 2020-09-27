@@ -17,7 +17,7 @@ func NewClient() (*hello.Client, error) {
 		helloHost = "localhost"
 	}
 	if helloPort == "" {
-		helloPort = "8012"
+		helloPort = "8021"
 	}
 
 	return hello.NewClient(

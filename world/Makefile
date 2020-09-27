@@ -27,7 +27,7 @@ run-hello:
 	$(MAKE) -C ./hello run
 
 .PHONY: run-webapp
-## run-hello: run the webapp server
+## run-webapp: run the webapp server
 run-webapp:
 	$(MAKE) -C ./webapp run
 

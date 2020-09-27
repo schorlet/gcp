@@ -11,6 +11,7 @@ ifeq ($(STATIC),y)
 	GO_LDFLAGS += -w -s -extldflags "-static"
 	export CGO_ENABLED=0
 endif
+export GO111MODULE=on
 
 .DEFAULT_GOAL := api
 
@@ -65,7 +66,7 @@ install: api
 clean:
 	go clean -i -x
 	touch pb/*.proto
-	rm -fv $(GENERATED_FILES)
+	#rm -fv $(GENERATED_FILES)
 
 
 .PHONY: help

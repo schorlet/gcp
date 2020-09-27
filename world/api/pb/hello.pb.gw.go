@@ -88,6 +88,7 @@ func local_request_Hello_Hello_0(ctx context.Context, marshaler runtime.Marshale
 // RegisterHelloHandlerServer registers the http handlers for service Hello to "mux".
 // UnaryRPC     :call HelloServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
+// Note that using this registration option will cause many gRPC library features (such as grpc.SendHeader, etc) to stop working. Consider using RegisterHelloHandlerFromEndpoint instead.
 func RegisterHelloHandlerServer(ctx context.Context, mux *runtime.ServeMux, server HelloServer) error {
 
 	mux.Handle("GET", pattern_Hello_Hello_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {

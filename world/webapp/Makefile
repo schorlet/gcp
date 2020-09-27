@@ -9,7 +9,7 @@ SHORT_SHA := $(shell git rev-parse --short HEAD 2>/dev/null || echo none)
 GOFILES     := $(shell find . -name '*.go' -a ! -name '*_test.go')
 GOTESTFILES := $(shell find . -name '*_test.go')
 
-HELLO_SERVICE_HOST ?= localhost
+HELLO_SERVICE_HOST ?= $(shell hostname)
 HELLO_SERVICE_PORT ?= 8021
 
 GO_LDFLAGS  := -X 'main.Version=$(SHORT_SHA)'
@@ -20,6 +20,7 @@ ifeq ($(STATIC),y)
 	GO_LDFLAGS += -w -s -extldflags "-static"
 	export CGO_ENABLED=0
 endif
+export GO111MODULE=on
 
 .DEFAULT_GOAL := build
 
@@ -100,13 +101,22 @@ cover.out: $(TARGET)
 	go tool cover -func=cover.out
 
 
-.PHONY: container
-## container: build a docker container
-container: Dockerfile
+.PHONY: image
+## image: build a docker image
+image: Dockerfile
 	docker image build \
 		--tag $(APP):v1 \
 		--build-arg SHORT_SHA=$(SHORT_SHA) \
 		-f Dockerfile .
+
+.PHONY: run-container
+## run-container: run a docker container
+run-container:
+	docker container run --rm -d \
+		-p $(PORT):$(PORT) \
+		-e HELLO_SERVICE_HOST=$(HELLO_SERVICE_HOST) \
+		-e HELLO_SERVICE_PORT=$(HELLO_SERVICE_PORT) \
+		$(APP):v1
 
 
 .PHONY: help
