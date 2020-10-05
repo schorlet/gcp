@@ -1,0 +1,20 @@
+version: "3.0"
+
+services:
+  hello:
+    image: hello:v1
+    deploy: # only when using docker stack deploy
+      mode: replicated
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    restart: unless-stopped # ignored when using docker stack deploy
+  webapp:
+    image: webapp:v1
+    ports:
+      - 8011:8011
+    depends_on: # ignored when using docker stack deploy
+      - hello
+    environment:
+      - HELLO_SERVICE_HOST=hello
+      - HELLO_SERVICE_PORT=8021
