@@ -43,7 +43,7 @@ func NewClient(addr string) (*Client, error) {
 	opts = append(opts, grpc.WithDefaultServiceConfig(
 		`{"loadBalancingPolicy":"round_robin"}`,
 	))
-	addr = fmt.Sprintf("dns:%s", addr)
+	addr = fmt.Sprintf("dns:///%s", addr)
 
 	ctx, timeout := context.WithTimeout(context.Background(), 3*time.Second)
 	defer timeout()
